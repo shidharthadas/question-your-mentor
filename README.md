@@ -1,6 +1,8 @@
-# [Question Your Mentor]
+# Question Your Mentor
 
-This project is based on Django REST framework. Below are the Use Case: Implement multiple API endpoints to post questions to Mentor.
+This project is based on Django REST framework. Below are the Use Case:
+
+- Implement multiple API endpoints to post questions to Mentor.
 
 - Application must be having user’s with two roles: User and Mentor. (Mentor will be created by the System Admin.)
 
@@ -30,11 +32,6 @@ This project is based on Django REST framework. Below are the Use Case: Implemen
 
 ----
 
-# Requirements
-
-* Python (3.8, 3.9)
-* Django (3.1)
-
 # Installation
 
 Install using `pip`...
@@ -63,5 +60,20 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
     ]
+}
+```
+
+Import the question-your-mentor.sql in your database and change the credentials accordingly.
+
+```python
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql', 
+        'NAME': 'your_database_name',
+        'USER': 'username',
+        'PASSWORD': 'password',
+        'HOST': 'localhost_or_IP_Address',
+        'PORT': '3306',
+    }
 }
 ```

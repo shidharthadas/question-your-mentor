@@ -82,10 +82,10 @@ WSGI_APPLICATION = 'questionyourmentor.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql', 
-        'NAME': 'questionyourmentor',
-        'USER': 'root',
-        'PASSWORD': 'root123',
-        'HOST': '127.0.0.1',   # Or an IP Address that your DB is hosted on
+        'NAME': 'p7pkkWGMor',
+        'USER': 'p7pkkWGMor',
+        'PASSWORD': 'nL1kRhyTkU',
+        'HOST': 'remotemysql.com',   # Or an IP Address that your DB is hosted on
         'PORT': '3306',
     }
 }
