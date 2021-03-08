@@ -3,3 +3,4 @@ djangorestframework==3.12.1
 pip install mysqlclient
 pip install djangorestframework_simplejwt
 pip install PyJWT==1.7.1
+pip install django-rest-swagger

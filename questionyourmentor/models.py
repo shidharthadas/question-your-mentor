@@ -71,20 +71,9 @@ class Query(models.Model):
     query_time = models.DateTimeField(auto_now_add=True)
     response_message = models.TextField(blank=True)
     response_time = models.DateTimeField(auto_now=True)
-    slug = models.SlugField(blank=True, unique=True)
 
     def __str__(self):
         return self.query_message
-
-@receiver(post_delete, sender=Query)
-def submission_delete(sender, instance, **kwargs):
-    instance.image.delete(False)
-
-def pre_save_query_receiver(sender, instance, *args, **kwargs):
-    if not instance.slug:
-        instance.slug = slugify(instance.user.email)
-
-pre_save.connect(pre_save_query_receiver, sender=Query)
 
 class Log(models.Model):
     action_time = models.DateTimeField(auto_now_add=True)

@@ -1,21 +1,18 @@
 from django.shortcuts import render
 from django.conf import settings
-from django.contrib.auth.hashers import make_password, check_password
+from django.contrib.auth.hashers import check_password
 import django.contrib.auth.password_validation as validators
 from django.core import exceptions, serializers
 from django.core.exceptions import ValidationError
-from django.core.mail import send_mail #
 from django.db import IntegrityError
 from django.db.models import F
 from rest_framework import status, generics, viewsets
-from rest_framework.decorators import api_view #
-from rest_framework.exceptions import APIException #
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
-from rest_framework.views import APIView, exception_handler #
+from rest_framework.views import APIView
 from questionyourmentor.models import User, Query, Log
 from .serializers import UserSerializer, QuerySerializer, LogSerializer
-from .forms import * #
+from .forms import QueryFormWithAttachment, QueryFormWithoutAttachment, QueryRespondForm
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -36,7 +33,7 @@ class QueryViewSet(viewsets.ModelViewSet):
 
 
 class userLogin(APIView): 
-    # permission_classes = (IsAuthenticated, )
+    permission_classes = (IsAuthenticated, )
     def post(self, request):
         response = {'status':'failed', 'messages':[]}
         email = request.data['email']
@@ -58,7 +55,7 @@ class userLogin(APIView):
 
 
 class userSendingQuery(APIView): 
-    # permission_classes = (IsAuthenticated, )
+    permission_classes = (IsAuthenticated, )
     def post(self, request):
         response = {'status':'failed', 'messages':[]}
         user_object = User.objects.filter(id=request.data['user']).values('role')
@@ -86,7 +83,7 @@ class userSendingQuery(APIView):
 
 
 class viewQuery(APIView): 
-    # permission_classes = (IsAuthenticated, )
+    permission_classes = (IsAuthenticated, )
     def post(self, request):
         response = {'status':'failed', 'messages':[]}
         user_object = User.objects.filter(id=request.data['user_id']).values('role')
@@ -114,7 +111,7 @@ class viewQuery(APIView):
 
 
 class mentorRespondToQuery(APIView): 
-    # permission_classes = (IsAuthenticated, )
+    permission_classes = (IsAuthenticated, )
     def post(self, request):
         response = {'status':'failed', 'messages':[]}
         respond_object = Query.objects.filter(id=request.data['query_id'], mentor_user_id=request.data['mentor_user_id']).values('response_message')
@@ -135,58 +132,3 @@ class mentorRespondToQuery(APIView):
         else:
             response['messages'].append('You can not respond to this query.')
         return Response(response)
-
-@api_view(['GET', ])
-def api_detail_query_view(request, slug):
-    try:
-        query_object = Query.objects.get(slug=slug)
-    except query_object.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)    
-    if request.method == 'GET':
-        serializer = QuerySerializer(query_object)
-        return Response(serializer.data)
-
-
-@api_view(['PUT', ])
-def api_update_query_view(request, slug):
-    try:
-        query_object = Query.objects.get(slug=slug)
-    except query_object.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)    
-    if request.method == 'PUT':
-        serializer = QuerySerializer(query_object, data=request.data)
-        data = {}
-        if serializer.is_valid():
-            serializer.save()
-            data['success'] = 'update successful'
-            return Response(data=data)
-        return Response(serializer.errors, status=status.HTTP_404_NOT_FOUND)
-
-
-@api_view(['DELETE', ])
-def api_delete_query_view(request, slug):
-    try:
-        query_object = Query.objects.get(slug=slug)
-    except query_object.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)    
-    if request.method == 'DELETE':
-        operation = query_object.delete()
-        data = {}
-        if operation:
-            data['success'] = 'deleted successful'
-        else:
-            data['failure'] = 'delete failed'
-        return Response(data=data)
-
-
-@api_view(['POST', ])
-def api_create_query_view(request, slug):
-    user_object = User.objects.get(pk=1)
-    query_object = Query(author=user_object)    
-    if request.method == 'POST':
-        serializer = QuerySerializer(query_object, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-

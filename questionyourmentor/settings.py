@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_password_validators',
     'rest_framework',
+    'rest_framework_swagger',
     'questionyourmentor',
     'qym_api',
 ]
@@ -127,7 +128,8 @@ REST_FRAMEWORK = {
     #     "rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly"
     # ],
     'EXCEPTION_HANDLER': 'rest_framework.views.exception_handler',
-} 
+    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
+}
 
 
 # Internationalization
@@ -148,9 +150,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static")
-]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 STATIC_ROOT = os.path.join(BASE_DIR, "assets")
 
 MEDIA_URL = '/media/'

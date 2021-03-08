@@ -46,23 +46,6 @@ Startup up a new project like so...
     ./manage.py migrate
     ./manage.py createsuperuser
 
-Add the following to your `settings.py` module:
-
-```python
-INSTALLED_APPS = [
-    ...  # Make sure to include the default installed apps here.
-    'rest_framework',
-]
-
-REST_FRAMEWORK = {
-    # Use Django's standard `django.contrib.auth` permissions,
-    # or allow read-only access for unauthenticated users.
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
-    ]
-}
-```
-
 Import the question-your-mentor.sql in your database and change the credentials accordingly.
 
 ```python
@@ -77,3 +60,25 @@ DATABASES = {
     }
 }
 ```
+Run the project using
+
+    python manage.py runserver
+
+Urls are
+
+- http://127.0.0.1:8000/api/documentation/
+
+- http://127.0.0.1:8000/api/user/
+
+- http://127.0.0.1:8000/api/token/
+
+- http://127.0.0.1:8000/api/token/refresh/
+
+- http://127.0.0.1:8000/api/user-login/
+
+- http://127.0.0.1:8000/api/user-sending-query/
+
+- http://127.0.0.1:8000/api/view-query/
+
+- http://127.0.0.1:8000/api/mentor-respond-to-query/
+
