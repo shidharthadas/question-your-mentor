@@ -6,13 +6,19 @@ from django.core import exceptions, serializers
 from django.core.exceptions import ValidationError
 from django.db import IntegrityError
 from django.db.models import F
-from rest_framework import status, generics, viewsets
+from rest_framework import status, viewsets
+from rest_framework.generics import GenericAPIView
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from questionyourmentor.models import User, Query, Log
 from .serializers import UserSerializer, QuerySerializer, LogSerializer
 from .forms import QueryFormWithAttachment, QueryFormWithoutAttachment, QueryRespondForm
+
+
+class API(GenericAPIView):
+    pass
+    # serializer_class = 
 
 
 class UserViewSet(viewsets.ModelViewSet):

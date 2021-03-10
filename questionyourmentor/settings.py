@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_password_validators',
     'rest_framework',
-    'rest_framework_swagger',
+    'drf_yasg',
     'questionyourmentor',
     'qym_api',
 ]
