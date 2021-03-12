@@ -2,33 +2,33 @@
 
 This project is based on Django REST framework. Below are the Use Case:
 
-- Implement multiple API endpoints to post questions to Mentor.
+    - Implement multiple API endpoints to post questions to Mentor.
 
-- Application must be having user’s with two roles: User and Mentor. (Mentor will be created by the System Admin.)
+    - Application must be having user’s with two roles: User and Mentor. (Mentor will be created by the System Admin.)
 
-- User should be able to register account and login.
+    - User should be able to register account and login.
 
-- User must be able to send queries to Mentor. Message includes document attachment also.
+    - User must be able to send queries to Mentor. Message includes document attachment also.
 
-- Mentor must be able to view and respond to all the queries received to him.
+    - Mentor must be able to view and respond to all the queries received to him.
 
-- Use customized user model and make email as username
+    - Use customized user model and make email as username
 
-- Use Django password validator. (Password should contain minimum 8 letters, 2 numbers and 2 special chars)
+    - Use Django password validator. (Password should contain minimum 8 letters, 2 numbers and 2 special chars)
 
-- Use JWT Authentication to protect the endpoints.
+    - Use JWT Authentication to protect the endpoints.
 
-- Use DRF Exception Hander and return generic error response.
+    - Use DRF Exception Hander and return generic error response.
 
-- Use Serializers to validate the user request
+    - Use Serializers to validate the user request
 
-- Use multiple roles (e.g. USER, MENTOR,..) and the endpoints can be accessed based on the roles.
+    - Use multiple roles (e.g. USER, MENTOR,..) and the endpoints can be accessed based on the roles.
 
-- Use SMTP email background(Gmail) and signals for notification (Optional)
+    - Use SMTP email background(Gmail) and signals for notification (Optional)
 
-- Log every endpoint access (Optional)
+    - Log every endpoint access (Optional)
 
-- Use Swagger for API documentation (Optional)
+    - Use Swagger for API documentation (Optional)
 
 ----
 
@@ -66,19 +66,19 @@ Run the project using...
 
 Urls are...
 
-- http://127.0.0.1:8000/swagger/
+    - http://127.0.0.1:8000/swagger/
 
-- http://127.0.0.1:8000/api/user/
+    - http://127.0.0.1:8000/api/user/
 
-- http://127.0.0.1:8000/api/token/
+    - http://127.0.0.1:8000/api/token/
 
-- http://127.0.0.1:8000/api/token/refresh/
+    - http://127.0.0.1:8000/api/token/refresh/
 
-- http://127.0.0.1:8000/api/user-login/
+    - http://127.0.0.1:8000/api/user-login/
 
-- http://127.0.0.1:8000/api/user-sending-query/
+    - http://127.0.0.1:8000/api/user-sending-query/
 
-- http://127.0.0.1:8000/api/view-query/
+    - http://127.0.0.1:8000/api/view-query/
 
-- http://127.0.0.1:8000/api/mentor-respond-to-query/
+    - http://127.0.0.1:8000/api/mentor-respond-to-query/
 
