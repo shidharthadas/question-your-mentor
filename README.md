@@ -36,7 +36,7 @@ This project is based on Django REST framework. Below are the Use Case:
 
 Install using `pip`...
 
-    pip install djangorestframework
+    pip install -r requirements.txt
 
 Startup up a new project like so...
 
@@ -60,11 +60,11 @@ DATABASES = {
     }
 }
 ```
-Run the project using
+Run the project using...
 
     python manage.py runserver
 
-Urls are
+Urls are...
 
 - http://127.0.0.1:8000/swagger/
 
