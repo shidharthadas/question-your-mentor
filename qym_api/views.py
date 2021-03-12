@@ -39,7 +39,7 @@ class QueryViewSet(viewsets.ModelViewSet):
 
 
 class userLogin(APIView): 
-    permission_classes = (IsAuthenticated, )
+    # permission_classes = (IsAuthenticated, )
     def post(self, request):
         response = {'status':'failed', 'messages':[]}
         email = request.data['email']
@@ -61,7 +61,7 @@ class userLogin(APIView):
 
 
 class userSendingQuery(APIView): 
-    permission_classes = (IsAuthenticated, )
+    # permission_classes = (IsAuthenticated, )
     def post(self, request):
         response = {'status':'failed', 'messages':[]}
         user_object = User.objects.filter(id=request.data['user']).values('role')
@@ -89,7 +89,7 @@ class userSendingQuery(APIView):
 
 
 class viewQuery(APIView): 
-    permission_classes = (IsAuthenticated, )
+    # permission_classes = (IsAuthenticated, )
     def post(self, request):
         response = {'status':'failed', 'messages':[]}
         user_object = User.objects.filter(id=request.data['user_id']).values('role')
@@ -117,7 +117,7 @@ class viewQuery(APIView):
 
 
 class mentorRespondToQuery(APIView): 
-    permission_classes = (IsAuthenticated, )
+    # permission_classes = (IsAuthenticated, )
     def post(self, request):
         response = {'status':'failed', 'messages':[]}
         respond_object = Query.objects.filter(id=request.data['query_id'], mentor_user_id=request.data['mentor_user_id']).values('response_message')

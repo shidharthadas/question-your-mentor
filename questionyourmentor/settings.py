@@ -37,7 +37,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django_password_validators',
     'rest_framework',
     'drf_yasg',
     'questionyourmentor',
@@ -83,14 +82,13 @@ WSGI_APPLICATION = 'questionyourmentor.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql', 
-        'NAME': 'p7pkkWGMor',
-        'USER': 'p7pkkWGMor',
-        'PASSWORD': 'nL1kRhyTkU',
-        'HOST': 'remotemysql.com',   # Or an IP Address that your DB is hosted on
+        'NAME': 'questionyourmentor',
+        'USER': 'root',
+        'PASSWORD': 'root123',
+        'HOST': '127.0.0.1',   # Or an IP Address that your DB is hosted on
         'PORT': '3306',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators

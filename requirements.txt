@@ -1,6 +1,6 @@
-Django==3.1.2
-djangorestframework==3.12.1
-pip install mysqlclient
-pip install djangorestframework_simplejwt
+Django==3.1.7
+djangorestframework==3.12.2
+pip install -U drf-yasg==1.20.0
+pip install mysqlclient==2.0.3
+pip install djangorestframework_simplejwt==4.6.9
 pip install PyJWT==1.7.1
-pip install -U drf-yasg
