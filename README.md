@@ -32,27 +32,15 @@ This project is based on Django REST framework. Below are the Use Case:
 
 ----
 
-# Installation
+# Setting up
 
-Install using `pip`
-
-    pip install -r requirements.txt
-
-Startup up a new project like so...
-
-    pip install django
-    pip install djangorestframework
-    django-admin startproject example .
-    ./manage.py migrate
-    ./manage.py createsuperuser
-
-Import the question-your-mentor.sql in your database and change the credentials accordingly.
+Change the database credentials accordingly. In my case I am using MySql.
 
 ```python
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql', 
-        'NAME': 'your_database_name',
+        'NAME': 'database_name',
         'USER': 'username',
         'PASSWORD': 'password',
         'HOST': 'localhost_or_IP_Address',
@@ -60,6 +48,17 @@ DATABASES = {
     }
 }
 ```
+
+Install using `pip`
+
+    pip install -r requirements.txt
+
+Startup up a new project like so...
+
+    python manage.py makemigrations
+    python manage.py migrate
+    python manage.py createsuperuser
+
 Run the project using
 
     python manage.py runserver
@@ -68,17 +67,15 @@ Urls are
 
     - http://127.0.0.1:8000/swagger/
 
-    - http://127.0.0.1:8000/api/user/
+    - http://127.0.0.1:8000/api/register/
 
-    - http://127.0.0.1:8000/api/token/
+    - http://127.0.0.1:8000/api/login/
 
     - http://127.0.0.1:8000/api/token/refresh/
 
-    - http://127.0.0.1:8000/api/user-login/
-
     - http://127.0.0.1:8000/api/user-sending-query/
 
-    - http://127.0.0.1:8000/api/view-query/
+    - http://127.0.0.1:8000/api/view-query/<int:pk>/
 
-    - http://127.0.0.1:8000/api/mentor-respond-to-query/
+    - http://127.0.0.1:8000/api/mentor-respond-to-query/<int:pk>/
 

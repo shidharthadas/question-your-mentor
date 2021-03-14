@@ -33,7 +33,6 @@ class UserManager(BaseUserManager):
     user=self._create_user(email, password, True, True, **extra_fields)
     return user
 
-
 class User(AbstractBaseUser, PermissionsMixin):
     USER = 'Us'
     MENTOR = 'Me'
@@ -74,6 +73,7 @@ class Query(models.Model):
 
     def __str__(self):
         return self.query_message
+
 
 class Log(models.Model):
     action_time = models.DateTimeField(auto_now_add=True)
