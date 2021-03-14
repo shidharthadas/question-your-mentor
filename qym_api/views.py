@@ -1,11 +1,11 @@
-from django.shortcuts import render
-from django.db.models import F
-from rest_framework import status, viewsets
+from django.conf import settings 
+from rest_framework import status
 from rest_framework.generics import GenericAPIView
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.http import Http404
+from django.core.mail import send_mail
 from questionyourmentor.models import User, Query, Log
 from .serializers import UserSerializer, QueryCreateSerializer, QueryRespondSerializer
 
@@ -21,6 +21,11 @@ class UserRegister(APIView):
         serializer = UserSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
+            # subject = 'Welcome to Question Your Mentor'
+            # message = f'Hi {request.data["first_name"]}, thank you for registering in Question Your Mentor.'
+            # email_from = settings.EMAIL_HOST_USER
+            # recipient_list = [request.data["email"], ]
+            # send_mail( subject, message, email_from, recipient_list )
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -39,8 +44,7 @@ class UserSendingQuery(APIView):
                     serializer.save()
                     Log.objects.create(content_type='User sent a query', user_id=request.data['user'])
                     return Response(serializer.data, status=status.HTTP_201_CREATED)
-                else:
-                    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
             else:
                 return Response(data={"detail": "Only role with User can sent query to Mentor."}, status=status.HTTP_400_BAD_REQUEST)
         else:

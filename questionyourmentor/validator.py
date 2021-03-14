@@ -1,4 +1,3 @@
-import re
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext as _
 
@@ -8,7 +7,6 @@ class MinimumNumberValidator(object):
         self.min_number = min_number
     
     def validate(self, password, user=None):
-        # if len(password) < self.min_number:
         if sum(d.isdigit() for d in password) < 2:
             raise ValidationError(
                 _('This password must contain at least %(min_number)d numbers.'),
