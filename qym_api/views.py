@@ -31,8 +31,8 @@ class UserRegister(APIView):
 
 
 class UserSendingQuery(APIView): 
-    permission_classes = (IsAuthenticated, )
-    def post(self, request):
+    # permission_classes = (IsAuthenticated, )
+    def post(self, request, format=None):
         user_object = User.objects.filter(id=request.data['user']).values('role')
         mentor_object = User.objects.filter(id=request.data['mentor_user_id']).values('role')
         if user_object and mentor_object:
@@ -52,8 +52,8 @@ class UserSendingQuery(APIView):
 
 
 class ViewQuery(APIView): 
-    permission_classes = (IsAuthenticated, )
-    def get(self, request, pk):
+    # permission_classes = (IsAuthenticated, )
+    def get(self, request, pk, format=None):
         user_object = User.objects.filter(id=pk).values('role')
         if user_object:
             user = list(user_object)
@@ -72,8 +72,8 @@ class ViewQuery(APIView):
 
 
 class MentorRespondToQuery(APIView): 
-    permission_classes = (IsAuthenticated, )
-    def get_object(self, pk):
+    # permission_classes = (IsAuthenticated, )
+    def get_object(self, pk, format=None):
         try:
             return Query.objects.get(pk=pk)
         except Query.DoesNotExist:
