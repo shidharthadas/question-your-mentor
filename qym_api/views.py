@@ -6,33 +6,31 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.http import Http404
 from django.core.mail import send_mail
+from drf_yasg import openapi
+from drf_yasg.utils import swagger_auto_schema
 from questionyourmentor.models import User, Query, Log
 from .serializers import UserSerializer, QueryCreateSerializer, QueryRespondSerializer
 
 
-class API(GenericAPIView):
-    pass
-    # serializer_class = 
-
-
 class UserRegister(APIView):
     permission_classes = (AllowAny, )
-    def post(self, request, format=None):
+    @swagger_auto_schema(operation_description="email")
+    def post(self, request):
         serializer = UserSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            # subject = 'Welcome to Question Your Mentor'
-            # message = f'Hi {request.data["first_name"]}, thank you for registering in Question Your Mentor.'
-            # email_from = settings.EMAIL_HOST_USER
-            # recipient_list = [request.data["email"], ]
-            # send_mail( subject, message, email_from, recipient_list )
+            subject = 'Welcome to Question Your Mentor'
+            message = f'Hi {request.data["first_name"]}, thank you for registering in Question Your Mentor.'
+            email_from = settings.EMAIL_HOST_USER
+            recipient_list = [request.data["email"], ]
+            send_mail( subject, message, email_from, recipient_list )
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class UserSendingQuery(APIView): 
-    # permission_classes = (IsAuthenticated, )
-    def post(self, request, format=None):
+    permission_classes = (IsAuthenticated, )
+    def post(self, request):
         user_object = User.objects.filter(id=request.data['user']).values('role')
         mentor_object = User.objects.filter(id=request.data['mentor_user_id']).values('role')
         if user_object and mentor_object:
@@ -52,8 +50,8 @@ class UserSendingQuery(APIView):
 
 
 class ViewQuery(APIView): 
-    # permission_classes = (IsAuthenticated, )
-    def get(self, request, pk, format=None):
+    permission_classes = (IsAuthenticated, )
+    def get(self, request, pk):
         user_object = User.objects.filter(id=pk).values('role')
         if user_object:
             user = list(user_object)
@@ -72,8 +70,8 @@ class ViewQuery(APIView):
 
 
 class MentorRespondToQuery(APIView): 
-    # permission_classes = (IsAuthenticated, )
-    def get_object(self, pk, format=None):
+    permission_classes = (IsAuthenticated, )
+    def get_object(self, pk):
         try:
             return Query.objects.get(pk=pk)
         except Query.DoesNotExist:

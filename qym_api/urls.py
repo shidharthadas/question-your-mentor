@@ -1,7 +1,6 @@
 from django.urls import path, include
 from qym_api import views
 from rest_framework_simplejwt import views as jwt_views
-from rest_framework.urlpatterns import format_suffix_patterns
 
 app_name = "qym_api"
 urlpatterns = [
@@ -12,5 +11,3 @@ urlpatterns = [
     path('view-query/<int:pk>/', views.ViewQuery.as_view(), name ='view_query'),
     path('mentor-respond-to-query/<int:pk>/', views.MentorRespondToQuery.as_view(), name ='mentor_respond_to_query'),
 ]
-
-urlpatterns = format_suffix_patterns(urlpatterns)

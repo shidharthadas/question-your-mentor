@@ -75,7 +75,7 @@ Urls are
 
     - http://127.0.0.1:8000/api/user-sending-query/
 
-    - http://127.0.0.1:8000/api/view-query/<int:pk>/
+    - http://127.0.0.1:8000/api/view-query/{id}/
 
-    - http://127.0.0.1:8000/api/mentor-respond-to-query/<int:pk>/
+    - http://127.0.0.1:8000/api/mentor-respond-to-query/{id}/
 
