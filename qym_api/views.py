@@ -34,6 +34,7 @@ def SendEmailWithAttachment(recipient_list, first_name):
     email.content_subtype = "html"
     fd = open('attach.py', 'r')
     email.attach('attach.py', fd.read(), 'text/plain')
+    email.attach_file('attach.pdf')
     email.send()
 
 
@@ -42,8 +43,8 @@ class UserRegister(APIView):
     def post(self, request):
         serializer = UserSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save()
-            SendEmail([request.data["email"], ], request.data["first_name"])
+            # serializer.save()
+            SendEmailWithAttachment([request.data["email"], ], request.data["first_name"])
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
