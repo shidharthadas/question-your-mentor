@@ -5,25 +5,45 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.http import Http404
-from django.core.mail import send_mail
-from drf_yasg import openapi
-from drf_yasg.utils import swagger_auto_schema
+from django.core.mail import send_mail, EmailMessage
 from questionyourmentor.models import User, Query, Log
 from .serializers import UserSerializer, QueryCreateSerializer, QueryRespondSerializer
 
 
+def SendEmail(recipient_list, first_name):
+    subject = 'Welcome to Question Your Mentor'
+    message = f'Hi {first_name}, thank you for registering in Question Your Mentor.'
+    email_from = settings.EMAIL_HOST_USER
+    send_mail( subject, message, email_from, recipient_list )
+
+
+def SendEmailWithHtmlContent(recipient_list, first_name):
+    subject = 'Welcome to Question Your Mentor'
+    html_content = f'<h2>Welcome {first_name}</h2><h4>Thank you for registering in Question Your Mentor.</h4>'
+    email_from = settings.EMAIL_HOST_USER
+    email = EmailMessage(subject, html_content, email_from, recipient_list)
+    email.content_subtype = "html"
+    email.send()
+
+
+def SendEmailWithAttachment(recipient_list, first_name):
+    subject = 'Welcome to Question Your Mentor'
+    html_content = f'<h2>Welcome {first_name}</h2><h4>Thank you for registering in Question Your Mentor.</h4>'
+    email_from = settings.EMAIL_HOST_USER
+    email = EmailMessage(subject, html_content, email_from, recipient_list)
+    email.content_subtype = "html"
+    fd = open('attach.py', 'r')
+    email.attach('attach.py', fd.read(), 'text/plain')
+    email.send()
+
+
 class UserRegister(APIView):
     permission_classes = (AllowAny, )
-    @swagger_auto_schema(operation_description="email")
     def post(self, request):
         serializer = UserSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            subject = 'Welcome to Question Your Mentor'
-            message = f'Hi {request.data["first_name"]}, thank you for registering in Question Your Mentor.'
-            email_from = settings.EMAIL_HOST_USER
-            recipient_list = [request.data["email"], ]
-            send_mail( subject, message, email_from, recipient_list )
+            SendEmail([request.data["email"], ], request.data["first_name"])
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
